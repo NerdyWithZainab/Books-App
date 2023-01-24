@@ -18,7 +18,7 @@ class _DisplayBooksState extends State<DisplayBooks> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Book>>(
-      future: booksAPI.fetchBooks(),
+      future: booksAPI.fetchBooks('Flutter'),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
