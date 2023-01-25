@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'books.dart';
 
 final booksAPI = BooksApi();
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class DisplayBooks extends StatefulWidget {
   const DisplayBooks({super.key});
