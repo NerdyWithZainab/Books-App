@@ -16,11 +16,11 @@ class Book {
 
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
-        title: json['volumeInfo']['title'],
-        author: json['volumeInfo']['authors'][0],
-        description: json['volumeInfo']['description'],
-        datePublished: json['volumeInfo']['datePublished'],
-        isbn: json['volumeInfo']['ISBN'],
-        imageUrl: json['volumeInfo']['imageLinks']['thumbnail']);
+        title: json['volumeInfo']['title'] ?? '',
+        author: json['volumeInfo']['authors']?.first ?? '',
+        description: json['volumeInfo']['description'] ?? '',
+        datePublished: json['volumeInfo']['publishedDate'] ?? '',
+        isbn: json['volumeInfo']['ISBN'] ?? '',
+        imageUrl: json['volumeInfo']['imageLinks']['thumbnail'] ?? '');
   }
 }
