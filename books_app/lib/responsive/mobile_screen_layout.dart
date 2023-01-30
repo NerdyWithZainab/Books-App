@@ -20,13 +20,10 @@ class _DisplayBooksState extends State<DisplayBooks> {
               scrollDirection: Axis.horizontal,
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                return SizedBox(
-                  width: 200,
-                  child: ListTile(
-                    //title: Text(snapshot.data![index].title),
-                    //subtitle: Text(snapshot.data![index].author),
-                    leading: Image.network(snapshot.data![index].imageUrl),
-                  ),
+                return ListTile(
+                  title: Text(snapshot.data![index].title),
+                  subtitle: Text(snapshot.data![index].author),
+                  leading: Image.network(snapshot.data![index].imageUrl),
                 );
               });
         } else if (snapshot.hasError) {
