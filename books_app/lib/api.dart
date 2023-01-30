@@ -9,7 +9,6 @@ class BooksApi {
 
     if (response.statusCode == 200) {
       // If the call to the API was successful, parse the JSON
-      print(response.body);
       List<dynamic> jsonResponse = jsonDecode(response.body)['items'];
       List<Book> books =
           jsonResponse.map((book) => Book.fromJson(book)).toList();
