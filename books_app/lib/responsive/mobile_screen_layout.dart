@@ -17,7 +17,6 @@ class _DisplayBooksState extends State<DisplayBooks> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
-              scrollDirection: Axis.horizontal,
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return ListTile(
