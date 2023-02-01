@@ -34,14 +34,19 @@ class _DisplayBooksState extends State<DisplayBooks> {
           TextField(
             style: const TextStyle(color: Colors.black),
             controller: _controller,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
                   color: Colors.black,
                 ),
-                suffixIcon: Icon(
-                  Icons.close,
-                  color: Colors.black,
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    _controller.clear();
+                  },
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.black,
+                  ),
                 ),
                 fillColor: Colors.white,
                 filled: true,
