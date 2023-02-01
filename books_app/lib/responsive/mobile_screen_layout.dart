@@ -10,26 +10,71 @@ class DisplayBooks extends StatefulWidget {
 }
 
 class _DisplayBooksState extends State<DisplayBooks> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Book>>(
-      future: booksAPI.fetchBooks("arabic"),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(snapshot.data![index].title),
-                  subtitle: Text(snapshot.data![index].author),
-                  leading: Image.network(snapshot.data![index].imageUrl),
-                );
-              });
-        } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
-        }
-        return const CircularProgressIndicator();
-      },
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          TextField(
+            style: const TextStyle(color: Colors.black),
+            controller: _controller,
+            decoration: const InputDecoration(
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ),
+                suffixIcon: Icon(
+                  Icons.close,
+                  color: Colors.black,
+                ),
+                fillColor: Colors.white,
+                filled: true,
+                hintText: "Search books...",
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30)))),
+          ),
+          Expanded(
+            child: FutureBuilder<List<Book>>(
+              future: _controller.text.isEmpty
+                  ? Future.value([])
+                  : booksAPI.fetchBooks(_controller.text),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(snapshot.data![index].title),
+                          subtitle: Text(snapshot.data![index].author),
+                          leading:
+                              Image.network(snapshot.data![index].imageUrl),
+                        );
+                      });
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

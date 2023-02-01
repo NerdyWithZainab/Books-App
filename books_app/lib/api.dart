@@ -13,8 +13,8 @@ class BooksApi {
       List<Book> books =
           jsonResponse.map((book) => Book.fromJson(book)).toList();
       return books;
-    } else if (response.statusCode == 400) {
-      throw Exception("It is a Bad Request.");
+      // } else if (response.statusCode == 400) {
+      //   throw Exception("It is a Bad Request.");
     } else {
       throw Exception('Failed to load books');
     }
