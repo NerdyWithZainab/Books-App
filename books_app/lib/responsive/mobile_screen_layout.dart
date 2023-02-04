@@ -29,14 +29,22 @@ class _DisplayBooksState extends State<DisplayBooks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.book),
-        ),
-        BottomNavigationBarItem(icon: Icon(Icons.library_books_sharp)),
-        BottomNavigationBarItem(icon: Icon(Icons.store_sharp)),
-        BottomNavigationBarItem(icon: Icon(Icons.search)),
-      ]),
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: (int index) {
+            if (index == 3) {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: ((context) => const DisplayBooks())));
+            }
+          },
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Icon(Icons.book), label: "Reading Now"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.library_books_sharp), label: "Library"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.store_sharp), label: "Book Store"),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+          ]),
       body: Column(
         children: <Widget>[
           TextField(
