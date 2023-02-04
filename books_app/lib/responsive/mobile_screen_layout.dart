@@ -29,13 +29,21 @@ class _DisplayBooksState extends State<DisplayBooks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.book),
+        ),
+        BottomNavigationBarItem(icon: Icon(Icons.library_books_sharp)),
+        BottomNavigationBarItem(icon: Icon(Icons.store_sharp)),
+        BottomNavigationBarItem(icon: Icon(Icons.search)),
+      ]),
       body: Column(
         children: <Widget>[
           TextField(
             style: const TextStyle(color: Colors.black),
             controller: _controller,
             decoration: InputDecoration(
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.search,
                   color: Colors.black,
                 ),
@@ -43,7 +51,7 @@ class _DisplayBooksState extends State<DisplayBooks> {
                   onTap: () {
                     _controller.clear();
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.close,
                     color: Colors.black,
                   ),
