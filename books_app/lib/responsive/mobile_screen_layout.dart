@@ -87,8 +87,6 @@ class _DisplayBooksState extends State<DisplayBooks> {
   }
 }
 
-Color item_color = Colors.white;
-
 class MobileScreenLayout extends StatelessWidget {
   const MobileScreenLayout({super.key});
 
@@ -96,52 +94,53 @@ class MobileScreenLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-          onTap: (int index) {
-            switch (index) {
-              case 0:
-                Center(child: Text("Reading Now"));
-                break;
-              case 1:
-                Center(child: Text(("Library")));
-                break;
-              case 2:
-                Center(child: Text("Search"));
-                break;
-              case 3:
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: ((context) => const DisplayBooks())));
-            }
-          },
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.book,
-                color: Colors.white,
-              ),
-              label: "Reading Now",
+        onTap: (int index) {
+          switch (index) {
+            case 0:
+              Center(child: Text("Reading Now"));
+              break;
+            case 1:
+              Center(child: Text(("Library")));
+              break;
+            case 2:
+              Center(child: Text("Search"));
+              break;
+            case 3:
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: ((context) => const DisplayBooks())));
+          }
+        },
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.book,
+              color: Colors.white,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.library_books_sharp,
-                color: Colors.white,
-              ),
-              label: "Library",
+            label: "Reading Now",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.library_books_sharp,
+              color: Colors.white,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.store_sharp,
-                color: Colors.white,
-              ),
-              label: "Book Store",
+            label: "Library",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.store_sharp,
+              color: Colors.white,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              label: "Search",
+            label: "Book Store",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+              color: Colors.white,
             ),
-          ]),
+            label: "Search",
+          ),
+        ],
+      ),
       body: const DisplayBooks(),
     );
   }
