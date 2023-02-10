@@ -29,22 +29,6 @@ class _DisplayBooksState extends State<DisplayBooks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-          onTap: (int index) {
-            if (index == 3) {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: ((context) => const DisplayBooks())));
-            }
-          },
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.book), label: "Reading Now"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.library_books_sharp), label: "Library"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.store_sharp), label: "Book Store"),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
-          ]),
       body: Column(
         children: <Widget>[
           TextField(
@@ -67,8 +51,10 @@ class _DisplayBooksState extends State<DisplayBooks> {
                 fillColor: Colors.white,
                 filled: true,
                 hintText: "Search books...",
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30)))),
+                hintStyle: TextStyle(color: Colors.black),
+                border: (OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                ))),
           ),
           Expanded(
             child: FutureBuilder<List<Book>>(
@@ -88,7 +74,8 @@ class _DisplayBooksState extends State<DisplayBooks> {
                         );
                       });
                 } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
+                  return Text(
+                      "An error occured while fetching the books :${snapshot.error}");
                 }
                 return const CircularProgressIndicator();
               },
@@ -100,11 +87,62 @@ class _DisplayBooksState extends State<DisplayBooks> {
   }
 }
 
+Color item_color = Colors.white;
+
 class MobileScreenLayout extends StatelessWidget {
   const MobileScreenLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const DisplayBooks();
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: (int index) {
+            switch (index) {
+              case 0:
+                Center(child: Text("Reading Now"));
+                break;
+              case 1:
+                Center(child: Text(("Library")));
+                break;
+              case 2:
+                Center(child: Text("Search"));
+                break;
+              case 3:
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: ((context) => const DisplayBooks())));
+            }
+          },
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.book,
+                color: Colors.white,
+              ),
+              label: "Reading Now",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.library_books_sharp,
+                color: Colors.white,
+              ),
+              label: "Library",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.store_sharp,
+                color: Colors.white,
+              ),
+              label: "Book Store",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              label: "Search",
+            ),
+          ]),
+      body: const DisplayBooks(),
+    );
   }
 }
