@@ -15,12 +15,20 @@ class Book {
       required this.imageUrl});
 
   factory Book.fromJson(Map<String, dynamic> json) {
+    var industryIdentifiers = json['volumeInfo']['industryIdentifiers'];
+    var isbn13 = industryIdentifiers?.firstWhere(
+          (identifier) => identifier['type'] == 'ISBN_13',
+          orElse: () => null,
+        )?['identifier'] ??
+        '';
     return Book(
         title: json['volumeInfo']['title'] ?? '',
-        author: json['volumeInfo']['authors']?.first ?? '',
+        author: json['volumeInfo']['authors'] != null
+            ? json['volumeInfo']['authors'][0]
+            : '',
         description: json['volumeInfo']['description'] ?? '',
         datePublished: json['volumeInfo']['publishedDate'] ?? '',
-        isbn: json['volumeInfo']['ISBN'] ?? '',
-        imageUrl: json['volumeInfo']['imageLinks']['thumbnail'] ?? '');
+        isbn: isbn13 ?? ' ',
+        imageUrl: json['volumeInfo']['imageLinks']?['thumbnail'] ?? '');
   }
 }

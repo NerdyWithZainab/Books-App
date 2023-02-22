@@ -1,3 +1,4 @@
+import 'package:books_app/api.dart';
 import 'package:flutter/material.dart';
 import '../books.dart';
 import '../main.dart';
@@ -26,35 +27,52 @@ class _DisplayBooksState extends State<DisplayBooks> {
     super.dispose();
   }
 
+  final booksApi = BooksApi();
+  // Declare a List of Book objects to hold the filteredBooks data
+  List<Book> filteredBooks = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
           TextField(
+            onChanged: (value) async {
+              // Call the fetchBooks method to retrieve a list of books based on the search query
+              final books = await booksApi.fetchBooks(value);
+              final searchTerms = value.toLowerCase().split(" ");
+              final filteredBooks = books.where((book) {
+                final bookTitle = book.title.toLowerCase();
+                return searchTerms.every((term) => bookTitle.contains(term));
+              }).toList();
+              // Refresh the UI with the filteredBooks data
+              setState(() {
+                this.filteredBooks = filteredBooks;
+              });
+            },
             style: const TextStyle(color: Colors.black),
             controller: _controller,
             decoration: InputDecoration(
-                prefixIcon: const Icon(
-                  Icons.search,
+              prefixIcon: const Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  _controller.clear();
+                },
+                child: const Icon(
+                  Icons.close,
                   color: Colors.black,
                 ),
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    _controller.clear();
-                  },
-                  child: const Icon(
-                    Icons.close,
-                    color: Colors.black,
-                  ),
-                ),
-                fillColor: Colors.white,
-                filled: true,
-                hintText: "Search books...",
-                hintStyle: TextStyle(color: Colors.black),
-                border: (OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                ))),
+              ),
+              fillColor: Colors.white,
+              filled: true,
+              hintText: "Search books...",
+              hintStyle: const TextStyle(color: Colors.black),
+              border: (const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+              )),
+            ),
           ),
           Expanded(
             child: FutureBuilder<List<Book>>(
@@ -64,13 +82,12 @@ class _DisplayBooksState extends State<DisplayBooks> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return ListView.builder(
-                      itemCount: snapshot.data!.length,
+                      itemCount: filteredBooks.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                          title: Text(snapshot.data![index].title),
-                          subtitle: Text(snapshot.data![index].author),
-                          leading:
-                              Image.network(snapshot.data![index].imageUrl),
+                          title: Text(filteredBooks[index].title),
+                          subtitle: Text(filteredBooks[index].author),
+                          leading: Image.network(filteredBooks[index].imageUrl),
                         );
                       });
                 } else if (snapshot.hasError) {
@@ -97,13 +114,13 @@ class MobileScreenLayout extends StatelessWidget {
         onTap: (int index) {
           switch (index) {
             case 0:
-              Center(child: Text("Reading Now"));
+              const Center(child: Text("Reading Now"));
               break;
             case 1:
-              Center(child: Text(("Library")));
+              const Center(child: Text(("Library")));
               break;
             case 2:
-              Center(child: Text("Search"));
+              const Center(child: Text("Search"));
               break;
             case 3:
               Navigator.of(context).push(MaterialPageRoute(

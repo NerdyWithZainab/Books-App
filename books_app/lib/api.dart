@@ -10,11 +10,12 @@ class BooksApi {
     if (response.statusCode == 200) {
       // If the call to the API was successful, parse the JSON
       List<dynamic> jsonResponse = jsonDecode(response.body)['items'];
+      print(response.runtimeType);
       List<Book> books =
           jsonResponse.map((book) => Book.fromJson(book)).toList();
       return books;
-       } else if (response.statusCode == 400) {
-         throw Exception("It is a Bad Request.");
+    } else if (response.statusCode == 400) {
+      throw Exception("It is a Bad Request.");
     } else {
       throw Exception('Failed to load books');
     }
