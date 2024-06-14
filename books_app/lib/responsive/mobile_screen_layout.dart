@@ -92,7 +92,7 @@ class _DisplayBooksState extends State<DisplayBooks> {
                       });
                 } else if (snapshot.hasError) {
                   return Text(
-                      "An error occured while fetching the books :${snapshot.error}");
+                      "An error occurred while fetching the books :${snapshot.error}");
                 }
                 return const CircularProgressIndicator();
               },
