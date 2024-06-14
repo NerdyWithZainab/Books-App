@@ -33,6 +33,7 @@ class _DisplayBooksState extends State<DisplayBooks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Column(
         children: <Widget>[
           TextField(
@@ -111,10 +112,14 @@ class MobileScreenLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey,
         onTap: (int index) {
           switch (index) {
             case 0:
-              const Center(child: Text("Reading Now"));
+              const Center(
+                  child: Text(
+                "Reading Now",
+              ));
               break;
             case 1:
               const Center(child: Text(("Library")));
@@ -129,12 +134,12 @@ class MobileScreenLayout extends StatelessWidget {
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.book,
-              color: Colors.white,
-            ),
-            label: "Reading Now",
-          ),
+              icon: Icon(
+                Icons.book,
+                color: Colors.white,
+              ),
+              label: "Reading Now",
+              backgroundColor: Colors.black),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.library_books_sharp,

@@ -12,14 +12,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const Scaffold(
-          body: ResponsiveLayout(
-              mobileScreenLayout: MobileScreenLayout(),
-              webScreenLayout: WebScreenLayout())),
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'BooksApp',
-      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.black),
+      home: BooksScreen(),
     );
+  }
+}
+
+class BooksScreen extends StatefulWidget {
+  const BooksScreen({super.key});
+
+  @override
+  State<BooksScreen> createState() => _BooksScreenState();
+}
+
+class _BooksScreenState extends State<BooksScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+        body: ResponsiveLayout(
+            mobileScreenLayout: MobileScreenLayout(),
+            webScreenLayout: WebScreenLayout()));
   }
 }
