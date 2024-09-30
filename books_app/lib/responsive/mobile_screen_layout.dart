@@ -112,7 +112,6 @@ class MobileScreenLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey,
         onTap: (int index) {
           switch (index) {
             case 0:

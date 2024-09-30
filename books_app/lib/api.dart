@@ -8,6 +8,10 @@ class BooksApi {
     final response = await http.get(Uri.parse(
         'https://www.googleapis.com/books/v1/volumes?q=$query&key=$googleApiKey'));
 
+    if (query.isEmpty || googleApiKey.isEmpty) {
+      print("Error: Query or API key is missing");
+    }
+
     if (response.statusCode == 200) {
       // If the call to the API was successful, parse the JSON
       List<dynamic> jsonResponse = jsonDecode(response.body)['items'];
