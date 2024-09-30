@@ -99,8 +99,12 @@ class _DisplayBooksState extends State<DisplayBooks> {
                       itemCount: filteredBooks.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                            title: Text(filteredBooks[index].title),
-                            subtitle: Text(filteredBooks[index].author),
+                            title: Text(
+                              filteredBooks[index].title,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            subtitle: Text(filteredBooks[index].author,
+                                style: const TextStyle(color: Colors.white)),
                             leading: filteredBooks[index].imageUrl.isNotEmpty
                                 ? Image.network(filteredBooks[index].imageUrl,
                                     errorBuilder:
@@ -141,21 +145,28 @@ class MobileScreenLayout extends StatelessWidget {
               const Center(child: Text(("Library")));
               break;
             case 2:
+              const Center(
+                child: Text("Bookstore"),
+              );
+              break;
+
+            case 3:
               const Center(child: Text("Search"));
               break;
-            case 3:
+            case 4:
               Navigator.of(context).push(MaterialPageRoute(
                   builder: ((context) => const DisplayBooks())));
           }
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.book,
-                color: Colors.white,
-              ),
-              label: "Reading Now",
-              backgroundColor: Colors.black),
+            icon: Icon(
+              Icons.book,
+              color: Colors.white,
+            ),
+            label: "Reading Now",
+            backgroundColor: Colors.black,
+          ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.library_books_sharp,
@@ -176,6 +187,7 @@ class MobileScreenLayout extends StatelessWidget {
               color: Colors.white,
             ),
             label: "Search",
+            backgroundColor: Colors.white,
           ),
         ],
       ),
