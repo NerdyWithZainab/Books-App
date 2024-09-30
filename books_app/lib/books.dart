@@ -5,6 +5,7 @@ class Book {
   final String datePublished;
   final String isbn;
   final String imageUrl;
+  final String googleBooksId;
 
   Book(
       {required this.title,
@@ -12,7 +13,8 @@ class Book {
       required this.description,
       required this.datePublished,
       required this.isbn,
-      required this.imageUrl});
+      required this.imageUrl,
+      required this.googleBooksId});
 
   factory Book.fromJson(Map<String, dynamic> json) {
     var industryIdentifiers = json['volumeInfo']['industryIdentifiers'];
@@ -29,6 +31,7 @@ class Book {
         description: json['volumeInfo']['description'] ?? '',
         datePublished: json['volumeInfo']['publishedDate'] ?? '',
         isbn: isbn13 ?? ' ',
-        imageUrl: json['volumeInfo']['imageLinks']?['thumbnail'] ?? '');
+        imageUrl: json['volumeInfo']['imageLinks']?['thumbnail'] ?? '',
+        googleBooksId: json['id']);
   }
 }

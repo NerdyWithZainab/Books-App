@@ -38,12 +38,25 @@ class _DisplayBooksState extends State<DisplayBooks> {
         children: <Widget>[
           TextField(
             onChanged: (value) async {
+              if (value.isEmpty) {
+                setState(() {
+                  this.filteredBooks = [];
+                });
+                return;
+              }
               // Call the fetchBooks method to retrieve a list of books based on the search query
               final books = await booksApi.fetchBooks(value);
+              Set<String> uniqueIds = <String>{};
               final searchTerms = value.toLowerCase().split(" ");
               final filteredBooks = books.where((book) {
                 final bookTitle = book.title.toLowerCase();
-                return searchTerms.every((term) => bookTitle.contains(term));
+                final isDuplicate = uniqueIds.contains(book.googleBooksId);
+                if (!isDuplicate &&
+                    searchTerms.every((term) => bookTitle.contains(term))) {
+                  uniqueIds.add(book.googleBooksId);
+                  return true;
+                }
+                return false;
               }).toList();
               // Refresh the UI with the filteredBooks data
               setState(() {
@@ -86,10 +99,14 @@ class _DisplayBooksState extends State<DisplayBooks> {
                       itemCount: filteredBooks.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                          title: Text(filteredBooks[index].title),
-                          subtitle: Text(filteredBooks[index].author),
-                          leading: Image.network(filteredBooks[index].imageUrl),
-                        );
+                            title: Text(filteredBooks[index].title),
+                            subtitle: Text(filteredBooks[index].author),
+                            leading: filteredBooks[index].imageUrl.isNotEmpty
+                                ? Image.network(filteredBooks[index].imageUrl,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(Icons.broken_image))
+                                : const Icon(Icons.book));
                       });
                 } else if (snapshot.hasError) {
                   return Text(
