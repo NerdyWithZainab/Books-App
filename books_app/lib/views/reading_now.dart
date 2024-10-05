@@ -8,7 +8,6 @@ class ReadingNow extends StatefulWidget {
 }
 
 class _ReadingNowState extends State<ReadingNow> {
-  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
