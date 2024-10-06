@@ -1,76 +1,64 @@
 import 'package:books_app/api.dart';
 import 'package:books_app/views/reading_now.dart';
 import 'package:books_app/views/search.dart';
+import 'package:books_app/views/bookstore.dart';
+import 'package:books_app/views/library.dart';
 import 'package:flutter/material.dart';
 import '../books.dart';
 import '../main.dart';
 
-class MobileScreenLayout extends StatelessWidget {
+class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({super.key});
+
+  @override
+  State<MobileScreenLayout> createState() => _MobileScreenLayoutState();
+}
+
+class _MobileScreenLayoutState extends State<MobileScreenLayout> {
+  int _selectedIndex = 0;
+  void _navigateBottomBar(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  final List _pages = [ReadingNow(), Library(), Bookstore(), Search()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (int index) {
-          switch (index) {
-            case 0:
-              const Center(
-                  child: Text(
-                "Reading Now",
-              ));
-              break;
-            case 1:
-              const Center(child: Text(("Library")));
-              break;
-            case 2:
-              const Center(
-                child: Text("Bookstore"),
-              );
-              break;
-
-            case 3:
-              const Center(child: Text("Search"));
-              break;
-            case 4:
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: ((context) => const ReadingNow())));
-          }
-        },
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar:
+          BottomNavigationBar(onTap: _navigateBottomBar, items: const [
+        BottomNavigationBarItem(
             icon: Icon(
               Icons.book,
               color: Colors.white,
             ),
             label: "Reading Now",
-            backgroundColor: Colors.black,
-          ),
-          BottomNavigationBarItem(
+            backgroundColor: Colors.black),
+        BottomNavigationBarItem(
             icon: Icon(
               Icons.library_books_sharp,
               color: Colors.white,
             ),
             label: "Library",
-          ),
-          BottomNavigationBarItem(
+            backgroundColor: Colors.black),
+        BottomNavigationBarItem(
             icon: Icon(
               Icons.store_sharp,
               color: Colors.white,
             ),
             label: "Book Store",
-          ),
-          BottomNavigationBarItem(
+            backgroundColor: Colors.black),
+        BottomNavigationBarItem(
             icon: Icon(
               Icons.search,
               color: Colors.white,
             ),
             label: "Search",
-            backgroundColor: Colors.white,
-          ),
-        ],
-      ),
-      body: const Search(),
+            backgroundColor: Colors.black)
+      ]),
     );
   }
 }
