@@ -10,6 +10,11 @@ class Library extends StatefulWidget {
 class _LibraryState extends State<Library> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Text("library",style: TextStyle(color: Colors.white),),
+        ),
+    );
   }
 }
