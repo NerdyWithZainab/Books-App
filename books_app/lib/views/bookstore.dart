@@ -10,11 +10,14 @@ class Bookstore extends StatefulWidget {
 class _BookstoreState extends State<Bookstore> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: Text("Book Store",style: TextStyle(color: Colors.white),),
+        child: Text(
+          "Book Store",
+          style: TextStyle(color: Colors.white),
         ),
+      ),
     );
   }
 }

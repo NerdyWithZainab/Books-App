@@ -1,11 +1,8 @@
-import 'package:books_app/api.dart';
 import 'package:books_app/views/reading_now.dart';
 import 'package:books_app/views/search.dart';
 import 'package:books_app/views/bookstore.dart';
 import 'package:books_app/views/library.dart';
 import 'package:flutter/material.dart';
-import '../books.dart';
-import '../main.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({super.key});
@@ -22,7 +19,12 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     });
   }
 
-  final List _pages = [ReadingNow(), Library(), Bookstore(), Search()];
+  final List _pages = [
+    const ReadingNow(),
+    const Library(),
+    const Bookstore(),
+    const Search()
+  ];
 
   @override
   Widget build(BuildContext context) {
