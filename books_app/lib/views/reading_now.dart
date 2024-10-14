@@ -10,11 +10,11 @@ class ReadingNow extends StatefulWidget {
 class _ReadingNowState extends State<ReadingNow> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: Text("Reading Now",style:TextStyle(color: Colors.white)),
-        ),
+        child: Text("Reading Now", style: TextStyle(color: Colors.white)),
+      ),
     );
   }
 }

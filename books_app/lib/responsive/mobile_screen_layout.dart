@@ -30,37 +30,37 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar:
-          BottomNavigationBar(onTap: _navigateBottomBar, items: const [
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.book,
-              color: Colors.white,
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.black,
+          primaryColor: Colors.white,
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _navigateBottomBar,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.grey,
+          type: BottomNavigationBarType.fixed,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book),
+              label: "Reading Now",
             ),
-            label: "Reading Now",
-            backgroundColor: Colors.black),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.library_books_sharp,
-              color: Colors.white,
+            BottomNavigationBarItem(
+              icon: Icon(Icons.library_books_sharp),
+              label: "Library",
             ),
-            label: "Library",
-            backgroundColor: Colors.black),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.store_sharp,
-              color: Colors.white,
+            BottomNavigationBarItem(
+              icon: Icon(Icons.store_sharp),
+              label: "Book Store",
             ),
-            label: "Book Store",
-            backgroundColor: Colors.black),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-            label: "Search",
-            backgroundColor: Colors.black)
-      ]),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: "Search",
+            )
+          ],
+        ),
+      ),
     );
   }
 }
