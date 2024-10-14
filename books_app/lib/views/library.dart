@@ -13,8 +13,11 @@ class _LibraryState extends State<Library> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: Text("library",style: TextStyle(color: Colors.white),),
+        child: Text(
+          "library",
+          style: TextStyle(color: Colors.white),
         ),
+      ),
     );
   }
 }
